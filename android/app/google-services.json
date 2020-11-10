@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "135009004024",
+    "firebase_url": "https://allintheplan-aaf1e.firebaseio.com",
+    "project_id": "allintheplan-aaf1e",
+    "storage_bucket": "allintheplan-aaf1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135009004024:android:cb4d2408ac659327cfce0d",
+        "android_client_info": {
+          "package_name": "edu.uco.jcraig.map2020.AllinthePlan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135009004024-6vv3ss1pqardnpsic41nqmnmbkb20q18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfN5sjWutok53zVUX0Qr6tLyKST4P29O4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135009004024-6vv3ss1pqardnpsic41nqmnmbkb20q18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

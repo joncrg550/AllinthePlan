@@ -23,7 +23,6 @@
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'signinscreen.dart';
 
@@ -41,7 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
   var formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    myController = _Controller(this);
+  }
+
+  void render(passedFunction) => setState(passedFunction);
+
+  @override
   Widget build(BuildContext context) {
+    Map arg = ModalRoute.of(context).settings.arguments;
+    user ??= arg['user'];
+
     return Scaffold(
       appBar: AppBar(
         title: Text("AllInThePlan Home"),

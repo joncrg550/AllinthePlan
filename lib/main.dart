@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/homescreen.dart';
@@ -6,7 +7,7 @@ import 'screens/signupscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //#TODO Firebase.initializeApp();
+  Firebase.initializeApp();
   runApp(AllInThePlan());
 }
 

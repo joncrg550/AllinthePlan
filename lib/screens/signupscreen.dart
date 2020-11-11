@@ -1,3 +1,5 @@
+import 'package:AllinthePlan/controller/firebasecontroller.dart';
+import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -94,6 +96,23 @@ class _Controller {
   }
 
   void signUp() async {
-    //#TODO
+    if (!_state.formKey.currentState.validate()) return;
+
+    _state.formKey.currentState.save();
+
+    try {
+      await FireBaseController.signUp(email, password);
+      DialogBox.info(
+        context: _state.context,
+        title: 'Succesfully created',
+        content: 'Your account is created! Go to Sign in',
+      );
+    } catch (e) {
+      DialogBox.info(
+        context: _state.context,
+        title: 'Error ',
+        content: e.message ?? e.toString(),
+      );
+    }
   }
 }

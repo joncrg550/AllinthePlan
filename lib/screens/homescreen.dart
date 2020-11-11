@@ -21,8 +21,10 @@
 //  / / /       \/       \ \ \  [____>   <____]
 
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
+import 'package:AllinthePlan/screens/profilescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import 'signinscreen.dart';
 
@@ -61,6 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: <Widget>[
             ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('Profile Settings'),
+              onTap: myController.profileSettings,
+            ),
+            ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Sign Out'),
               onTap: myController.signOut,
@@ -83,5 +90,18 @@ class _Controller {
       print('signOut Exception ${e.message}');
     }
     Navigator.pushReplacementNamed(_state.context, SignInScreen.routeName);
+  }
+
+  void profileSettings() async {
+    await Navigator.pushNamed(
+      _state.context,
+      ProfileScreen.routeName,
+      arguments: _state.user,
+    );
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+
+    Navigator.pop(_state.context);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class WeeklyCalendar extends StatefulWidget {
   static const routeName = 'homePage/weeklyCalendar';
@@ -17,7 +18,9 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
       appBar: AppBar(
         title: Text("WeeklyCalendar"),
       ),
-      body: Text("calendar coming soon"),
+      body: SfCalendar(
+        view: CalendarView.week,
+      ),
     );
   }
 }

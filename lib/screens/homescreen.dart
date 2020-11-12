@@ -85,6 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: myController.profileSettings,
             ),
             ListTile(
+              leading: Icon(Icons.note),
+              title: Text('Notes'),
+              onTap: myController.noteScreen,
+            ),
+            ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Sign Out'),
               onTap: myController.signOut,

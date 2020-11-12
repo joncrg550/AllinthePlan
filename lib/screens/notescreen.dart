@@ -20,7 +20,9 @@ class _NoteScreenState extends State<NoteScreen> {
       appBar: AppBar(
         title: Text("NoteScreen"),
       ),
-      body: Text("Notes coming soon"),
+      body: Center(
+        child: Text("notes"),
+      ),
     );
   }
 }

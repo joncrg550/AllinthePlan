@@ -30,7 +30,8 @@ dependencies:
   firebase_storage: ^4.0.0
   #firebase_ml_vision: ^0.9.4
   cached_network_image: ^2.2.0+1
-  table_calendar: ^2.3.0
+  table_calendar: ^2.3.0 #pull if i dont need
+  syncfusion_flutter_calendar: ^18.3.48
 
   #TODO, add libs for weather, calendar?, maps, video, sound  
 

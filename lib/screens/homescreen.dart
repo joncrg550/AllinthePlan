@@ -21,10 +21,13 @@
 //  / / /       \/       \ \ \  [____>   <____]
 
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
+import 'package:AllinthePlan/screens/dailycalendar.dart';
+import 'package:AllinthePlan/screens/monthlycalendar.dart';
+import 'package:AllinthePlan/screens/notescreen.dart';
 import 'package:AllinthePlan/screens/profilescreen.dart';
+import 'package:AllinthePlan/screens/weeklycalendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import 'signinscreen.dart';
 
@@ -58,7 +61,21 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("AllInThePlan Home"),
       ),
-      body: Text("All in the plan coming soon "),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          RaisedButton(
+              child: Text("Monthly Calendar"),
+              onPressed: myController.monthlyCalendar),
+          RaisedButton(
+              child: Text("Weekly Calendar"),
+              onPressed: myController.weeklyCalendar),
+          RaisedButton(
+              child: Text("Daily Calendar"),
+              onPressed: myController.dailyCalenday),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -90,6 +107,40 @@ class _Controller {
       print('signOut Exception ${e.message}');
     }
     Navigator.pushReplacementNamed(_state.context, SignInScreen.routeName);
+  }
+
+  void noteScreen() async {
+    await Navigator.pushNamed(_state.context, NoteScreen.routeName,
+        arguments: _state.user);
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+
+    Navigator.pop(_state.context);
+  }
+
+  void monthlyCalendar() async {
+    await Navigator.pushNamed(_state.context, MonthlyCalendar.routeName,
+        arguments: _state.user);
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+  }
+
+  void weeklyCalendar() async {
+    await Navigator.pushNamed(_state.context, WeeklyCalendar.routeName,
+        arguments: _state.user);
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+  }
+
+  void dailyCalenday() async {
+    await Navigator.pushNamed(_state.context, DailyCalendar.routeName,
+        arguments: _state.user);
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
   }
 
   void profileSettings() async {

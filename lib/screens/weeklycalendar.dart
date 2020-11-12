@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class MonthlyCalendar extends StatefulWidget {
-  static const routeName = 'homePage/monthlyCalendar';
+class WeeklyCalendar extends StatefulWidget {
+  static const routeName = 'homePage/weeklyCalendar';
   @override
   State<StatefulWidget> createState() {
-    return _MonthlyCalendarState();
+    return _WeeklyCalendarState();
   }
 }
 
-class _MonthlyCalendarState extends State<MonthlyCalendar> {
+class _WeeklyCalendarState extends State<WeeklyCalendar> {
   _Controller myController;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MonthlyCalendar"),
+        title: Text("WeeklyCalendar"),
       ),
       body: Text("calendar coming soon"),
     );

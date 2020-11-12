@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
+import 'package:AllinthePlan/screens/notificationsettings.dart';
+import 'package:AllinthePlan/screens/ui_settings.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -111,6 +113,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 validator: myController.validatorDisplayName,
                 onSaved: myController.onSavedDisplayName,
               ),
+              ListTile(
+                leading: Icon(Icons.notifications),
+                title: Text('Profile Settings'),
+                onTap: myController.notificationSettingsScreen,
+              ),
+              ListTile(
+                leading: Icon(Icons.android),
+                title: Text('UI Settings'),
+                onTap: myController.uiSettingsScreen,
+              ),
             ],
           ),
         ),
@@ -182,5 +194,31 @@ class _Controller {
         content: e.message ?? e.toString(),
       );
     }
+  }
+
+  void notificationSettingsScreen() async {
+    await Navigator.pushNamed(
+      _state.context,
+      NotificationSettingsScreen.routeName,
+      arguments: _state.user,
+    );
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+
+    //Navigator.pop(_state.context);
+  }
+
+  void uiSettingsScreen() async {
+    await Navigator.pushNamed(
+      _state.context,
+      UISettingsScreen.routeName,
+      arguments: _state.user,
+    );
+
+    await _state.user.reload();
+    _state.user = FirebaseAuth.instance.currentUser;
+
+    //Navigator.pop(_state.context);
   }
 }

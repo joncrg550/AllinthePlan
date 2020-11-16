@@ -1,4 +1,6 @@
+import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/dailycalendar.dart';
+import 'package:AllinthePlan/screens/editeventscreen.dart';
 import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/notescreen.dart';
 import 'package:AllinthePlan/screens/notificationsettings.dart';
@@ -7,6 +9,7 @@ import 'package:AllinthePlan/screens/weeklycalendar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'screens/eventscreen.dart';
 import 'screens/homescreen.dart';
 import 'screens/profilescreen.dart';
 import 'screens/signinscreen.dart';
@@ -35,6 +38,9 @@ class AllInThePlan extends StatelessWidget {
             NotificationSettingsScreen(),
         UISettingsScreen.routeName: (context) => UISettingsScreen(),
         NoteScreen.routeName: (context) => NoteScreen(),
+        EventScreen.routeName: (context) => EventScreen(),
+        AddEventScreen.routeName: (context) => AddEventScreen(),
+        EditEventScreen.routeName: (context) => EditEventScreen(),
         //#TODO add screen navs here as added
       },
     );

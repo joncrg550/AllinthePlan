@@ -7,6 +7,8 @@ class Event {
   static const EVENT_TITLE = 'eventTitle';
   static const CREATED_BY = 'createdBy';
   static const UPDATED_AT = 'updatedAt';
+  static const START = 'start';
+  static const END = 'end';
   static const SHARED_WITH = 'sharedWith';
   //#TODO find similar to photoMemo
   static const IMAGE_FOLDER = 'eventPictures';
@@ -36,14 +38,22 @@ class Event {
   String eventTitle;
   String createdBy;
   DateTime updatedAt;
+  DateTime start;
+  DateTime end;
+
   String photoURL;
   String photoPath;
+
   String videoUrl;
   String videoPath;
+
   String soundURL;
   String soundPath;
+
   String eventNote;
+
   String eventLocation;
+
   String recognizedText;
   List<dynamic> sharedWith;
   List<dynamic> imageLabels;
@@ -61,6 +71,8 @@ class Event {
       this.eventNote,
       this.sharedWith,
       this.updatedAt,
+      this.start,
+      this.end,
       this.eventLocation,
       this.imageLabels,
       this.recognizedText}) {
@@ -83,6 +95,8 @@ class Event {
       SOUND_PATH: soundPath,
       SOUND_URL: soundURL,
       UPDATED_AT: updatedAt,
+      START: start,
+      END: end,
       SHARED_WITH: sharedWith,
       IMAGE_LABELS: imageLabels,
       RECOGNIZED_TEXT: recognizedText,
@@ -105,6 +119,8 @@ class Event {
       soundURL: data[Event.SOUND_URL],
       sharedWith: data[Event.SHARED_WITH],
       imageLabels: data[Event.IMAGE_LABELS],
+      start: data[Event.START],
+      end: data[Event.END],
       updatedAt: data[Event.UPDATED_AT] != null
           ? data[Event.UPDATED_AT].millisecondsSinceEpoch()
           : null,
@@ -113,6 +129,6 @@ class Event {
 
   @override
   String toString() {
-    return '$docId, $createdBy, $eventTitle, $eventNote';
+    return '$docId, $createdBy, $eventTitle, $eventNote, $start, $end';
   }
 }

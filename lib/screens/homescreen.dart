@@ -21,6 +21,8 @@
 //  / / /       \/       \ \ \  [____>   <____]
 
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
+import 'package:AllinthePlan/model/event.dart';
+
 import 'package:AllinthePlan/screens/dailycalendar.dart';
 import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/notescreen.dart';
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   User user;
   _Controller myController;
   var formKey = GlobalKey<FormState>();
+  List<Event> events;
 
   @override
   void initState() {
@@ -56,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Map arg = ModalRoute.of(context).settings.arguments;
     user ??= arg['user'];
+    events ??= arg['calendarData'];
 
     return Scaffold(
       appBar: AppBar(
@@ -126,7 +130,7 @@ class _Controller {
 
   void monthlyCalendar() async {
     await Navigator.pushNamed(_state.context, MonthlyCalendar.routeName,
-        arguments: _state.user);
+        arguments: {'user': _state.user, 'calendarData': _state.events});
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;
@@ -134,7 +138,7 @@ class _Controller {
 
   void weeklyCalendar() async {
     await Navigator.pushNamed(_state.context, WeeklyCalendar.routeName,
-        arguments: _state.user);
+        arguments: {'user': _state.user, 'calendarData': _state.events});
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;
@@ -142,7 +146,7 @@ class _Controller {
 
   void dailyCalenday() async {
     await Navigator.pushNamed(_state.context, DailyCalendar.routeName,
-        arguments: _state.user);
+        arguments: {'user': _state.user, 'calendarData': _state.events});
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;

@@ -1,4 +1,6 @@
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
+
+import 'package:AllinthePlan/model/event.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -110,9 +112,17 @@ class _Controller {
       );
       return;
     }
-    DialogBox.circularProgressEnd(_state.context);
-    Navigator.pushReplacementNamed(_state.context, HomeScreen.routeName,
-        arguments: {'user': user});
+
+    try {
+      List<Event> eventList = await FireBaseController.getEvents(user.email);
+
+      DialogBox.circularProgressEnd(_state.context);
+
+      Navigator.pushReplacementNamed(_state.context, HomeScreen.routeName,
+          arguments: {'user': user, 'calendarData': eventList});
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void signUp() async {

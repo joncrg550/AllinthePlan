@@ -11,14 +11,24 @@ class DialogBox {
     Navigator.pop(context);
   }
 
-  static void info({BuildContext context, String title, String content}) {
+  static void info(
+      {BuildContext context, String title, String content, String photoUrl}) {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
-          content: Text(content),
+          content: Column(
+            children: <Widget>[
+              photoUrl == null
+                  ? SizedBox(
+                      width: 0.0,
+                    )
+                  : Image.network(photoUrl),
+              Text(content)
+            ],
+          ),
           actions: <Widget>[
             FlatButton(
               child: Text('OK'),

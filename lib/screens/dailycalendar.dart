@@ -16,7 +16,7 @@ class _DailyCalendarState extends State<DailyCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("DaillyCalendar"),
+        title: Text("Daily Calendar"),
       ),
       body: SfCalendar(
         view: CalendarView.timelineDay,

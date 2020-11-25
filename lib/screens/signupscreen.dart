@@ -105,7 +105,7 @@ class _Controller {
       DialogBox.info(
         context: _state.context,
         title: 'Succesfully created',
-        content: 'Your account is created! Go to Sign in',
+        content: Text('Your account is created! Go to Sign in'),
       );
     } catch (e) {
       DialogBox.info(

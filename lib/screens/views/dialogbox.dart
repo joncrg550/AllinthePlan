@@ -12,7 +12,7 @@ class DialogBox {
   }
 
   static void info(
-      {BuildContext context, String title, String content, String photoUrl}) {
+      {BuildContext context, String title, Widget content, String photoUrl}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -26,7 +26,7 @@ class DialogBox {
                       width: 0.0,
                     )
                   : Image.network(photoUrl),
-              Text(content)
+              content,
             ],
           ),
           actions: <Widget>[

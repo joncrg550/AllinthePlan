@@ -1,4 +1,5 @@
 import 'package:AllinthePlan/model/event.dart';
+import 'package:AllinthePlan/model/note.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _DailyCalendarState extends State<DailyCalendar> {
   User user;
   List<Event> events;
   EventDataSource source;
+  List<Note> notes;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _DailyCalendarState extends State<DailyCalendar> {
     Map arg = ModalRoute.of(context).settings.arguments;
     user ??= arg['user'];
     events ??= arg['calendarData'];
+    notes ??= arg['notes'];
 
     return Scaffold(
       appBar: AppBar(
@@ -73,11 +76,12 @@ class _Controller {
       _startTimeText,
       _endTimeText,
       _timeDetails,
-      _photoUrl;
+      _photoUrl,
+      _note;
 
   void calendarTapped(CalendarTapDetails details) {
     print("tapped");
-    if (details.targetElement == CalendarElement.calendarCell ||
+    if (details.targetElement == CalendarElement.appointment ||
         details.targetElement == CalendarElement.agenda) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
@@ -94,20 +98,23 @@ class _Controller {
         _timeDetails = '$_startTimeText - $_endTimeText';
       }
       _photoUrl = appointmentDetails.photoURL;
+      _note = appointmentDetails.eventNote;
       DialogBox.info(
-          title: _subjectText,
-          content: "Date " +
-              _dateText +
-              " Start " +
-              _startTimeText +
-              " end " +
-              _endTimeText,
-          photoUrl: _photoUrl,
-          context: _state.context);
+        title: _subjectText,
+        content: SingleChildScrollView(
+          child: Text(
+            " Start time " +
+                _startTimeText +
+                "\n" +
+                " end time" +
+                _endTimeText +
+                "\n" +
+                "note " +
+                _note,
+          ),
+        ),
+      );
     }
-    //need to push data to event view about the day, so it can return that
-    //days events
-    //may not be a calendar cell, include error handling
   }
 
   void calendarLongPressed() {
@@ -119,7 +126,8 @@ class _Controller {
     Navigator.pushNamed(_state.context, AddEventScreen.routeName, arguments: {
       'user': _state.user,
       'calendarData': _state.events,
-      'dataSource': _state.source
+      'dataSource': _state.source,
+      'notes': _state.notes
     });
     //navigate to event view, repaint on return
   }

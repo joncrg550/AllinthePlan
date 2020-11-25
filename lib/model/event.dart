@@ -1,6 +1,7 @@
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class Event {
@@ -174,5 +175,10 @@ class EventDataSource extends CalendarDataSource {
   @override
   String getStartTimeZone(int index) {
     return appointments[index].fromZone;
+  }
+
+  @override
+  String getNotes(int index) {
+    return appointments[index].eventNote;
   }
 }

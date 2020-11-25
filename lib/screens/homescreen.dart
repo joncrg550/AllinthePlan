@@ -132,7 +132,11 @@ class _Controller {
 
   void monthlyCalendar() async {
     await Navigator.pushNamed(_state.context, MonthlyCalendar.routeName,
-        arguments: {'user': _state.user, 'calendarData': _state.events});
+        arguments: {
+          'user': _state.user,
+          'calendarData': _state.events,
+          'notes': await FireBaseController.getNotes(_state.user.email)
+        });
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;

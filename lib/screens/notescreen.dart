@@ -140,16 +140,21 @@ class _Controller {
   }
 
   String validatorTitle(String title) {
+    bool alreadyExisting = false;
     if (title == null || title.length < 3) {
       return "Title must be at least three characters";
     } else
       _state.notes.forEach((element) {
-        if (element.title.compareTo(title) == 0) {
-          return "A note of this Title already Exists";
+        String value = element.title.toString();
+        if (title == value) {
+          alreadyExisting = true;
         }
       });
 
-    return null;
+    if (alreadyExisting)
+      return "This title is already used";
+    else
+      return null;
   }
 
   void onSavedTitle(String title) {

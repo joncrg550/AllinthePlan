@@ -6,12 +6,15 @@
 //   // ^^ ^/\| v""v |/\^ ^ ^\\
 //  // ^^/\/ /  `~~`  \ \/\^ ^\\
 //  -----------------------------
+import 'package:AllinthePlan/model/note.dart';
+
 /// HERE BE DRAGONS
 
 import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:AllinthePlan/model/event.dart';
@@ -29,7 +32,8 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
   User user;
   List<Event> events;
   EventDataSource source;
-
+  CalendarView view = CalendarView.month;
+  List<Note> notes;
   @override
   void initState() {
     super.initState();
@@ -42,6 +46,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
     Map arg = ModalRoute.of(context).settings.arguments;
     user ??= arg['user'];
     events ??= arg['calendarData'];
+    notes ??= arg['notes'];
 
     return Scaffold(
       appBar: AppBar(
@@ -52,13 +57,33 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
           children: [
             Container(
               child: SfCalendar(
-                view: CalendarView.month,
-                controller: CalendarController(),
+                view: view,
+                controller: myController,
                 onTap: myController.calendarTapped,
                 dataSource: myController.getDataSource(),
                 monthViewSettings: MonthViewSettings(
+                    dayFormat: 'EEE',
+                    numberOfWeeksInView: 4,
+                    appointmentDisplayCount: 2,
                     appointmentDisplayMode:
-                        MonthAppointmentDisplayMode.appointment),
+                        MonthAppointmentDisplayMode.appointment,
+                    showAgenda: true,
+                    navigationDirection: MonthNavigationDirection.horizontal,
+                    agendaStyle: AgendaStyle(
+                        backgroundColor: Colors.transparent,
+                        appointmentTextStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontStyle: FontStyle.italic),
+                        dayTextStyle: TextStyle(
+                            color: Colors.red,
+                            fontSize: 13,
+                            fontStyle: FontStyle.italic),
+                        dateTextStyle: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal))),
 
                 //#TODO Add data source, and sync with firebase. probably need to
                 // repaint after coming back from add/edit event as well.
@@ -75,7 +100,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
   }
 }
 
-class _Controller {
+class _Controller extends CalendarController {
   _MonthlyCalendarState _state;
   _Controller(this._state);
   var _subjectText,
@@ -83,12 +108,12 @@ class _Controller {
       _startTimeText,
       _endTimeText,
       _timeDetails,
+      _note,
       _photoUrl;
 
   void calendarTapped(CalendarTapDetails details) {
     print("tapped");
-    if (details.targetElement == CalendarElement.calendarCell ||
-        details.targetElement == CalendarElement.agenda) {
+    if (details.targetElement == CalendarElement.appointment) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
       _dateText = DateFormat('MMMM dd, yyyy')
@@ -104,14 +129,21 @@ class _Controller {
         _timeDetails = '$_startTimeText - $_endTimeText';
       }
       _photoUrl = appointmentDetails.photoURL;
+      _note = appointmentDetails.eventNote;
       DialogBox.info(
           title: _subjectText,
-          content: "Date " +
-              _dateText +
-              " Start " +
-              _startTimeText +
-              " end " +
-              _endTimeText,
+          content: SingleChildScrollView(
+            child: Text(
+              " Start time " +
+                  _startTimeText +
+                  "\n" +
+                  " end time" +
+                  _endTimeText +
+                  "\n" +
+                  "note " +
+                  _note,
+            ),
+          ),
           photoUrl: _photoUrl,
           context: _state.context);
     }
@@ -126,11 +158,9 @@ class _Controller {
     Navigator.pushNamed(_state.context, AddEventScreen.routeName, arguments: {
       'user': _state.user,
       'calendarData': _state.events,
-      'dataSource': _state.source
+      'dataSource': _state.source,
+      'notes': _state.notes,
     });
-
-    _state.source
-        .notifyListeners(CalendarDataSourceAction.reset, _state.events);
   }
 
   EventDataSource getDataSource() {

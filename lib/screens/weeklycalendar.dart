@@ -1,4 +1,5 @@
 import 'package:AllinthePlan/model/event.dart';
+import 'package:AllinthePlan/model/note.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
   User user;
   List<Event> events;
   EventDataSource source;
+  List<Note> notes;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
     Map arg = ModalRoute.of(context).settings.arguments;
     user ??= arg['user'];
     events ??= arg['calendarData'];
+    notes ??= arg['notes'];
 
     return Scaffold(
       appBar: AppBar(
@@ -72,15 +75,15 @@ class _Controller {
       _startTimeText,
       _endTimeText,
       _timeDetails,
-      _photoUrl;
+      _photoUrl,
+      _note;
 
   void calendarTapped(CalendarTapDetails details) {
     //need to push data to event view about the day, so it can return that
     //days events
     //may not be a calendar cell, include error handling
     print("tapped");
-    if (details.targetElement == CalendarElement.calendarCell ||
-        details.targetElement == CalendarElement.agenda) {
+    if (details.targetElement == CalendarElement.appointment) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
       _dateText = DateFormat('MMMM dd, yyyy')
@@ -98,12 +101,18 @@ class _Controller {
       _photoUrl = appointmentDetails.photoURL;
       DialogBox.info(
           title: _subjectText,
-          content: "Date " +
-              _dateText +
-              " Start " +
-              _startTimeText +
-              " end " +
-              _endTimeText,
+          content: SingleChildScrollView(
+            child: Text(
+              " Start time " +
+                  _startTimeText +
+                  "\n" +
+                  " end time" +
+                  _endTimeText +
+                  "\n" +
+                  "note " +
+                  _note,
+            ),
+          ),
           photoUrl: _photoUrl,
           context: _state.context);
     }

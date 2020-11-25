@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
 
 import 'package:AllinthePlan/model/event.dart';
+import 'package:AllinthePlan/model/note.dart';
 import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,6 +29,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   var endTimeKey = GlobalKey<FormState>();
   User user;
   List<Event> events;
+  List<Note> notes;
   File image;
   File video; //#TODO
   File sound; //#TODO
@@ -48,6 +50,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
     user ??= args['user'];
     events ??= args['calendarData'];
     source ??= args['dataSource'];
+    notes ??= args['notes'];
 
     return Scaffold(
       appBar: AppBar(
@@ -136,6 +139,18 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 onSaved: myController.onSavedEventLocation,
               ),
               TextFormField(
+                decoration: InputDecoration(hintText: 'Event Note'),
+                autocorrect: false,
+                maxLines: 3,
+                validator: myController.validatorEventNote,
+                onSaved: myController.onSavedEventNote,
+              ),
+              ListTile(
+                leading: Icon(Icons.note_add),
+                title: Text("Enter An existing note title to add a note"),
+                onTap: myController.addNote,
+              ),
+              TextFormField(
                 decoration: InputDecoration(hintText: 'Shared With'),
                 autocorrect: false,
                 maxLines: 3,
@@ -159,7 +174,7 @@ class _Controller {
   String eventLocation;
   List<String> sharedWith = [];
   String uploadProgressMessage;
-
+  Note note;
   void save() async {
     if (!_state.formKey.currentState.validate()) return;
 
@@ -168,6 +183,10 @@ class _Controller {
     try {
       DialogBox.circularProgressStart(_state.context);
       //1. upload picture to storage
+      if (_state.image == null) {
+        DialogBox.circularProgressEnd(_state.context);
+        return;
+      }
       Map<String, String> photoInfo = await FireBaseController.uploadStorage(
           image: _state.image,
           uid: _state.user.uid,
@@ -187,6 +206,7 @@ class _Controller {
         createdBy: _state.user.email,
         sharedWith: sharedWith,
         updatedAt: DateTime.now(),
+        eventNote: note.note,
         from: startTime,
         to: endTime,
         eventLocation: eventLocation,
@@ -197,11 +217,10 @@ class _Controller {
       print('################################');
 
       DialogBox.circularProgressEnd(_state.context);
-      SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
-        _state.source
-            .notifyListeners(CalendarDataSourceAction.add, _state.events);
-      });
-      Navigator.pop(_state.context);
+
+      _state.source.appointments.add(p);
+      _state.source.notifyListeners(
+          CalendarDataSourceAction.add, _state.source.appointments);
       Navigator.pop(_state.context);
     } catch (e) {
       DialogBox.circularProgressEnd(_state.context);
@@ -209,7 +228,7 @@ class _Controller {
       DialogBox.info(
         context: _state.context,
         title: 'Firebase error ',
-        content: e.toString(),
+        content: Text(e.toString()),
       );
     }
   }
@@ -310,5 +329,28 @@ class _Controller {
         _state.image = File(_imageFile.path);
       });
     } catch (e) {}
+  }
+
+  void addNote() {}
+
+  String validatorEventNote(String title) {
+    bool noteFound = false;
+    for (Note note in _state.notes) {
+      if (note.title == title) {
+        noteFound = true;
+      }
+    }
+    if (noteFound)
+      return null;
+    else
+      return "Please enter an existing note title";
+  }
+
+  void onSavedEventNote(String title) {
+    for (Note note in _state.notes) {
+      if (note.title == title) {
+        this.note = note;
+      }
+    }
   }
 }

@@ -1,3 +1,13 @@
+//        .==.        .==.
+//       //`^\\      //^`\\
+//      // ^ ^\(\__/)/^ ^^\\
+//     //^ ^^ ^/6  6\ ^^ ^ \\
+//    //^ ^^ ^/( .. )\^ ^ ^ \\
+//   // ^^ ^/\| v""v |/\^ ^ ^\\
+//  // ^^/\/ /  `~~`  \ \/\^ ^\\
+//  -----------------------------
+/// HERE BE DRAGONS
+
 import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +45,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("MonthlyCalendar"),
+        title: Text("Monthly Calendar"),
       ),
       body: SingleChildScrollView(
         child: Column(

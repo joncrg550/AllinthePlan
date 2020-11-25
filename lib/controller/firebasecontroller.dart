@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:AllinthePlan/model/event.dart';
+import 'package:AllinthePlan/model/note.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -99,5 +100,35 @@ class FireBaseController {
       }
     }
     return result;
+  }
+
+  static Future<String> addNote(Note note) async {
+    note.updatedAt = DateTime.now();
+
+    DocumentReference ref = await FirebaseFirestore.instance
+        .collection(Note.COLLECTION)
+        .add(note.serialize());
+  }
+
+  static Future<List<Note>> getNotes(String email) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(Note.COLLECTION)
+        .where(Note.CREATED_BY, isEqualTo: email)
+        .orderBy(Note.UPDATED_AT, descending: true)
+        .get();
+    var result = <Note>[];
+    if (querySnapshot != null && querySnapshot.docs.length != 0) {
+      for (var doc in querySnapshot.docs) {
+        result.add(Note.deserialize(doc.data(), doc.id));
+      }
+    }
+    return result;
+  }
+
+  static Future<void> deleteNote(Note note) async {
+    await FirebaseFirestore.instance
+        .collection(Note.COLLECTION)
+        .doc(note.docId)
+        .delete();
   }
 }

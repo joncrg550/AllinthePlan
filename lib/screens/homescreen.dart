@@ -119,8 +119,10 @@ class _Controller {
   }
 
   void noteScreen() async {
-    await Navigator.pushNamed(_state.context, NoteScreen.routeName,
-        arguments: _state.user);
+    await Navigator.pushNamed(_state.context, NoteScreen.routeName, arguments: {
+      'user': _state.user,
+      'notes': await FireBaseController.getNotes(_state.user.email)
+    });
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;

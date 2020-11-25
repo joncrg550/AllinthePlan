@@ -56,6 +56,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
         child: Column(
           children: [
             Container(
+              height: 550.0,
               child: SfCalendar(
                 view: view,
                 controller: myController,
@@ -109,7 +110,8 @@ class _Controller extends CalendarController {
       _endTimeText,
       _timeDetails,
       _note,
-      _photoUrl;
+      _photoUrl,
+      _location;
 
   void calendarTapped(CalendarTapDetails details) {
     print("tapped");
@@ -130,17 +132,21 @@ class _Controller extends CalendarController {
       }
       _photoUrl = appointmentDetails.photoURL;
       _note = appointmentDetails.eventNote;
+      _location = appointmentDetails.eventLocation;
       DialogBox.info(
           title: _subjectText,
           content: SingleChildScrollView(
             child: Text(
-              " Start time " +
+              " Start time: " +
                   _startTimeText +
                   "\n" +
-                  " end time" +
+                  " End time: " +
                   _endTimeText +
                   "\n" +
-                  "note " +
+                  " Location: " +
+                  _location +
+                  "\n"
+                      "note: " +
                   _note,
             ),
           ),

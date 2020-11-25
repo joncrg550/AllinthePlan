@@ -46,6 +46,7 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
         child: Column(
           children: [
             Container(
+              height: 550.0,
               child: SfCalendar(
                 view: CalendarView.week,
                 onTap: myController.calendarTapped,
@@ -75,6 +76,7 @@ class _Controller {
       _startTimeText,
       _endTimeText,
       _timeDetails,
+      _location,
       _photoUrl,
       _note;
 
@@ -99,17 +101,22 @@ class _Controller {
         _timeDetails = '$_startTimeText - $_endTimeText';
       }
       _photoUrl = appointmentDetails.photoURL;
+      _note = appointmentDetails.eventNote;
+      _location = appointmentDetails.eventLocation;
       DialogBox.info(
           title: _subjectText,
           content: SingleChildScrollView(
             child: Text(
-              " Start time " +
+              " Start time: " +
                   _startTimeText +
                   "\n" +
-                  " end time" +
+                  " End time: " +
                   _endTimeText +
                   "\n" +
-                  "note " +
+                  " Location: " +
+                  _location +
+                  "\n"
+                      "note: " +
                   _note,
             ),
           ),

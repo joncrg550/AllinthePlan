@@ -46,6 +46,7 @@ class _DailyCalendarState extends State<DailyCalendar> {
         child: Column(
           children: [
             Container(
+              height: 550.0,
               child: SfCalendar(
                 view: CalendarView.timelineDay,
                 controller: CalendarController(),
@@ -77,6 +78,7 @@ class _Controller {
       _endTimeText,
       _timeDetails,
       _photoUrl,
+      _location,
       _note;
 
   void calendarTapped(CalendarTapDetails details) {
@@ -99,21 +101,26 @@ class _Controller {
       }
       _photoUrl = appointmentDetails.photoURL;
       _note = appointmentDetails.eventNote;
+      _location = appointmentDetails.eventLocation;
       DialogBox.info(
-        title: _subjectText,
-        content: SingleChildScrollView(
-          child: Text(
-            " Start time " +
-                _startTimeText +
-                "\n" +
-                " end time" +
-                _endTimeText +
-                "\n" +
-                "note " +
-                _note,
+          title: _subjectText,
+          content: SingleChildScrollView(
+            child: Text(
+              " Start time: " +
+                  _startTimeText +
+                  "\n" +
+                  " End time: " +
+                  _endTimeText +
+                  "\n" +
+                  " Location: " +
+                  _location +
+                  "\n"
+                      "note: " +
+                  _note,
+            ),
           ),
-        ),
-      );
+          photoUrl: _photoUrl,
+          context: _state.context);
     }
   }
 

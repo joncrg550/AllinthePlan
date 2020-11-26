@@ -30,13 +30,18 @@ class _SignInState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: Text('Sign In to AllInThePlan!'),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.transparent,
+                child: Image.asset('images/signInScreen.png'),
+              ),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Email',

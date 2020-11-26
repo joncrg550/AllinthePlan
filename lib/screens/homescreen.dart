@@ -69,6 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+           Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.transparent,
+                child: Image.asset('images/homeScreen.jpg'),
+              ),
           RaisedButton(
               child: Text("Monthly Calendar"),
               onPressed: myController.monthlyCalendar),

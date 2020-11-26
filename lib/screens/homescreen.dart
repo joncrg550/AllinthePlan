@@ -1,13 +1,13 @@
 //      	                          |     |
 //                                  \\_V_//
-//                                  \/=|=\/
+//                                  \/=|=\/           <---me
 //                                   [=v=]
 //                                 __\___/_____
 //                                /..[  _____  ]
-//                               /_  [ [  M /] ]
-//             Bugs             /../.[ [ M /@] ]
-//                             <-->[_[ [M /@/] ]
-//                            /../ [.[ [ /@/ ] ]
+//             bugs              /_  [ [  M /] ]
+//               |              /../.[ [ M /@] ]
+//               |             <-->[_[ [M /@/] ]
+//               v            /../ [.[ [ /@/ ] ]
 //       _________________]\ /__/  [_[ [/@/ C] ]
 //      <_________________>>0---]  [=\ \@/ C / /
 //         ___      ___   ]/000o   /__\ \ C / /
@@ -144,7 +144,11 @@ class _Controller {
 
   void weeklyCalendar() async {
     await Navigator.pushNamed(_state.context, WeeklyCalendar.routeName,
-        arguments: {'user': _state.user, 'calendarData': _state.events});
+        arguments: {
+          'user': _state.user,
+          'calendarData': _state.events,
+          'notes': await FireBaseController.getNotes(_state.user.email)
+        });
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;
@@ -152,7 +156,11 @@ class _Controller {
 
   void dailyCalenday() async {
     await Navigator.pushNamed(_state.context, DailyCalendar.routeName,
-        arguments: {'user': _state.user, 'calendarData': _state.events});
+        arguments: {
+          'user': _state.user,
+          'calendarData': _state.events,
+          'notes': await FireBaseController.getNotes(_state.user.email)
+        });
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;

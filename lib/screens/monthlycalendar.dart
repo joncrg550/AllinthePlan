@@ -34,9 +34,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
   User user;
   List<Event> events;
   EventDataSource source;
-  CalendarView view = CalendarView.month;
   List<Note> notes;
-  bool showDelete = false;
 
   @override
   void initState() {
@@ -62,7 +60,7 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
             Container(
               height: 550.0,
               child: SfCalendar(
-                view: view,
+                view: CalendarView.month,
                 controller: myController,
                 onTap: myController.calendarTapped,
                 dataSource: myController.getDataSource(),
@@ -114,32 +112,19 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
 class _Controller extends CalendarController {
   _MonthlyCalendarState _state;
   _Controller(this._state);
-  var _subjectText,
-      _dateText,
-      _startTimeText,
-      _endTimeText,
-      _timeDetails,
-      _note,
-      _photoUrl,
-      _location;
+  var _subjectText, _startTimeText, _endTimeText, _note, _photoUrl, _location;
 
   void calendarTapped(CalendarTapDetails details) {
     print("tapped");
     if (details.targetElement == CalendarElement.appointment) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
-      _dateText = DateFormat('MMMM dd, yyyy')
-          .format(appointmentDetails.from)
-          .toString();
+
       _startTimeText =
           DateFormat('hh:mm a').format(appointmentDetails.from).toString();
       _endTimeText =
           DateFormat('hh:mm a').format(appointmentDetails.to).toString();
-      if (appointmentDetails.isAllDay) {
-        _timeDetails = 'All day';
-      } else {
-        _timeDetails = '$_startTimeText - $_endTimeText';
-      }
+
       _photoUrl = appointmentDetails.photoURL;
       _note = appointmentDetails.eventNote;
       _location = appointmentDetails.eventLocation;

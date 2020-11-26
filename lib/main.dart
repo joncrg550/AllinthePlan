@@ -1,3 +1,18 @@
+// CS Students
+// powered by Caffeine™
+//                 CH3
+//                  |
+//                  N
+//                 / \
+//            N---C   C==O
+//           ||  ||   |
+//           ||  ||   |
+//           CH   C   N--CH3
+//             \ / \ /
+//              N   C
+//              |  ||
+//             CH3  O
+
 import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/dailycalendar.dart';
 import 'package:AllinthePlan/screens/deleteeventscreen.dart';

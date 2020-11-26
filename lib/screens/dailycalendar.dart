@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import 'addeventscreen.dart';
+import 'deleteeventscreen.dart';
 
 class DailyCalendar extends StatefulWidget {
   static const routeName = 'homePage/dailyCalendar';
@@ -57,10 +57,19 @@ class _DailyCalendarState extends State<DailyCalendar> {
                         MonthAppointmentDisplayMode.appointment),
               ),
             ),
-            RaisedButton.icon(
-                onPressed: myController.addEvent,
-                icon: Icon(Icons.calendar_today),
-                label: Text("Add an event.")),
+            Row(
+              children: <Widget>[
+                RaisedButton.icon(
+                    onPressed: myController.addEvent,
+                    icon: Icon(Icons.calendar_today),
+                    label: Text("Add an event.")),
+                RaisedButton.icon(
+                  icon: Icon(Icons.delete),
+                  onPressed: myController.delete,
+                  label: Text("delete an event"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -68,18 +77,11 @@ class _DailyCalendarState extends State<DailyCalendar> {
   }
 }
 
-class _Controller {
+class _Controller extends CalendarController {
   _DailyCalendarState _state;
   _Controller(this._state);
 
-  var _subjectText,
-      _dateText,
-      _startTimeText,
-      _endTimeText,
-      _timeDetails,
-      _photoUrl,
-      _location,
-      _note;
+  var _subjectText, _startTimeText, _endTimeText, _photoUrl, _location, _note;
 
   void calendarTapped(CalendarTapDetails details) {
     print("tapped");
@@ -87,18 +89,11 @@ class _Controller {
         details.targetElement == CalendarElement.agenda) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
-      _dateText = DateFormat('MMMM dd, yyyy')
-          .format(appointmentDetails.from)
-          .toString();
       _startTimeText =
           DateFormat('hh:mm a').format(appointmentDetails.from).toString();
       _endTimeText =
           DateFormat('hh:mm a').format(appointmentDetails.to).toString();
-      if (appointmentDetails.isAllDay) {
-        _timeDetails = 'All day';
-      } else {
-        _timeDetails = '$_startTimeText - $_endTimeText';
-      }
+
       _photoUrl = appointmentDetails.photoURL;
       _note = appointmentDetails.eventNote;
       _location = appointmentDetails.eventLocation;
@@ -126,7 +121,6 @@ class _Controller {
 
   void calendarLongPressed() {
     //need to push data to EditEventView about the day, so it can know which days
-    //events are meant to be edited.
   }
 
   void addEvent() {
@@ -137,6 +131,15 @@ class _Controller {
       'notes': _state.notes
     });
     //navigate to event view, repaint on return
+  }
+
+  void delete() {
+    Navigator.pushNamed(_state.context, DeleteEventScreen.routeName,
+        arguments: {
+          'user': _state.user,
+          'calendarData': _state.events,
+          'dataSource': _state.source,
+        });
   }
 
   EventDataSource getDataSource() {

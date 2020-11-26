@@ -6,11 +6,13 @@
 //   // ^^ ^/\| v""v |/\^ ^ ^\\
 //  // ^^/\/ /  `~~`  \ \/\^ ^\\
 //  -----------------------------
+/// HERE BE DRAGONS
+/// ABANDON ALL HOPE, YE WHO FEAR BUGS.
+import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:AllinthePlan/model/note.dart';
 
-/// HERE BE DRAGONS
-
 import 'package:AllinthePlan/screens/addeventscreen.dart';
+import 'package:AllinthePlan/screens/deleteeventscreen.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,8 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
   EventDataSource source;
   CalendarView view = CalendarView.month;
   List<Note> notes;
+  bool showDelete = false;
+
   @override
   void initState() {
     super.initState();
@@ -85,15 +89,21 @@ class _MonthlyCalendarState extends State<MonthlyCalendar> {
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal))),
-
-                //#TODO Add data source, and sync with firebase. probably need to
-                // repaint after coming back from add/edit event as well.
               ),
             ),
-            RaisedButton.icon(
-                onPressed: myController.addEvent,
-                icon: Icon(Icons.calendar_today),
-                label: Text("Add an event.")),
+            Row(
+              children: <Widget>[
+                RaisedButton.icon(
+                    onPressed: myController.addEvent,
+                    icon: Icon(Icons.calendar_today),
+                    label: Text("Add an event.")),
+                RaisedButton.icon(
+                  icon: Icon(Icons.delete),
+                  onPressed: myController.delete,
+                  label: Text("delete an event"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -156,8 +166,16 @@ class _Controller extends CalendarController {
   }
 
   void calendarLongPressed(CalendarTapDetails details) {
-    //need to push data to EditEventView about the day, so it can know which days
-    //events are meant to be edited.
+    // add edit screen to this.
+  }
+
+  void delete() {
+    Navigator.pushNamed(_state.context, DeleteEventScreen.routeName,
+        arguments: {
+          'user': _state.user,
+          'calendarData': _state.events,
+          'dataSource': _state.source,
+        });
   }
 
   void addEvent() {

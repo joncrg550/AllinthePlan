@@ -131,4 +131,11 @@ class FireBaseController {
         .doc(note.docId)
         .delete();
   }
+
+  static Future<void> deleteEvent(Event event) async {
+    await FirebaseFirestore.instance
+        .collection(Event.COLLECTION)
+        .doc(event.docId)
+        .delete();
+  }
 }

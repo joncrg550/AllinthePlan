@@ -1,5 +1,6 @@
 import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/dailycalendar.dart';
+import 'package:AllinthePlan/screens/deleteeventscreen.dart';
 import 'package:AllinthePlan/screens/editeventscreen.dart';
 import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/notescreen.dart';
@@ -41,6 +42,7 @@ class AllInThePlan extends StatelessWidget {
         EventScreen.routeName: (context) => EventScreen(),
         AddEventScreen.routeName: (context) => AddEventScreen(),
         EditEventScreen.routeName: (context) => EditEventScreen(),
+        DeleteEventScreen.routeName: (context) => DeleteEventScreen(),
         //#TODO add screen navs here as added
       },
     );

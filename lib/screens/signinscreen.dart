@@ -31,6 +31,7 @@ class _SignInState extends State<SignInScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign In to AllInThePlan!'),
+        backgroundColor: Colors.greenAccent[400],
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -63,9 +64,13 @@ class _SignInState extends State<SignInScreen> {
               RaisedButton(
                 child: Text(
                   'Sign In',
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: 'ShadowsIntoLight',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.black),
                 ),
-                color: Colors.blue,
+                color: Colors.greenAccent[400],
                 onPressed: myController.signIn,
               ),
               SizedBox(
@@ -76,9 +81,12 @@ class _SignInState extends State<SignInScreen> {
                 child: Text(
                   'No Account yet? Click here to create.',
                   style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+                      fontFamily: 'ShadowsIntoLight',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.black),
                 ),
+                color: Colors.greenAccent[400],
               ),
             ],
           ),

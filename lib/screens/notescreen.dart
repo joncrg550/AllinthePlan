@@ -34,6 +34,7 @@ class _NoteScreenState extends State<NoteScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.greenAccent[400],
         title: Text("Note Screen"),
         actions: <Widget>[
           IconButton(
@@ -82,7 +83,15 @@ class _NoteScreenState extends State<NoteScreen> {
                 onSaved: myController.onSavedNote,
               ),
               RaisedButton(
-                child: Text("Save Note"),
+                color: Colors.greenAccent[400],
+                child: Text(
+                  "Save Note",
+                  style: TextStyle(
+                      fontFamily: 'ShadowsIntoLight',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                      color: Colors.black),
+                ),
                 onPressed: myController.save,
               ),
             ],

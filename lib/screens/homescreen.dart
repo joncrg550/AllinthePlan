@@ -63,26 +63,65 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("AllInThePlan Home"),
+        backgroundColor: Colors.greenAccent[400],
+        title: Text("${user.email}'s Homes page"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-           Container(
-                width: MediaQuery.of(context).size.width,
-                color: Colors.transparent,
-                child: Image.asset('images/homeScreen.jpg'),
-              ),
-          RaisedButton(
-              child: Text("Monthly Calendar"),
-              onPressed: myController.monthlyCalendar),
-          RaisedButton(
-              child: Text("Weekly Calendar"),
-              onPressed: myController.weeklyCalendar),
-          RaisedButton(
-              child: Text("Daily Calendar"),
-              onPressed: myController.dailyCalenday),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.transparent,
+            child: Image.asset('images/homeScreen.jpg'),
+          ),
+          Row(
+            children: <Widget>[
+              RaisedButton(
+                  color: Colors.greenAccent[400],
+                  child: Text(
+                    "Monthly Calendar",
+                    style: TextStyle(
+                        fontFamily: 'ShadowsIntoLight',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: myController.monthlyCalendar),
+              RaisedButton(
+                  color: Colors.greenAccent[400],
+                  child: Text(
+                    "Weekly Calendar",
+                    style: TextStyle(
+                        fontFamily: 'ShadowsIntoLight',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: myController.weeklyCalendar),
+              RaisedButton(
+                  color: Colors.greenAccent[400],
+                  child: Text(
+                    "Daily Calendar",
+                    style: TextStyle(
+                        fontFamily: 'ShadowsIntoLight',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  onPressed: myController.dailyCalenday),
+            ],
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.transparent,
+            child: Image.asset('images/comingSoon.jpeg'),
+          ),
+          Container(
+            color: Colors.black,
+            height: 51.3,
+            width: MediaQuery.of(context).size.width,
+          )
         ],
       ),
       drawer: Drawer(

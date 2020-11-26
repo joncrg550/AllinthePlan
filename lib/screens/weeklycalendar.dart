@@ -42,6 +42,7 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Weekly Calendar"),
+        backgroundColor: Colors.greenAccent[400],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -60,13 +61,29 @@ class _WeeklyCalendarState extends State<WeeklyCalendar> {
             Row(
               children: <Widget>[
                 RaisedButton.icon(
+                    color: Colors.greenAccent[400],
                     onPressed: myController.addEvent,
                     icon: Icon(Icons.calendar_today),
-                    label: Text("Add an event.")),
+                    label: Text(
+                      "Add an event.",
+                      style: TextStyle(
+                          fontFamily: 'ShadowsIntoLight',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.black),
+                    )),
                 RaisedButton.icon(
+                  color: Colors.greenAccent[400],
                   icon: Icon(Icons.delete),
                   onPressed: myController.delete,
-                  label: Text("delete an event"),
+                  label: Text(
+                    "delete an event",
+                    style: TextStyle(
+                        fontFamily: 'ShadowsIntoLight',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
                 ),
               ],
             ),

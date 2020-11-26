@@ -37,6 +37,7 @@ class _DeleteEventScreenState extends State<DeleteEventScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Delete events"),
+        backgroundColor: Colors.greenAccent[400],
         actions: <Widget>[
           myController.delIndex == null
               ? SizedBox(
@@ -51,7 +52,11 @@ class _DeleteEventScreenState extends State<DeleteEventScreen> {
       body: events.length == 0
           ? Text(
               'No Events to delete',
-              style: TextStyle(fontSize: 30.0),
+              style: TextStyle(
+                  fontFamily: 'ShadowsIntoLight',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50,
+                  color: Colors.black),
             )
           : ListView.builder(
               itemCount: events.length,

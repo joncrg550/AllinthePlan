@@ -24,7 +24,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create an account'),
+        title: Text(
+          'Account Creation',
+        ),
+        backgroundColor: Colors.greenAccent[400],
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -34,8 +37,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Text(
                 "Create an Account",
                 style: TextStyle(
-                  fontSize: 25.0,
-                ),
+                    fontFamily: 'ShadowsIntoLight',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    color: Colors.black),
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Email'),
@@ -55,9 +60,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onPressed: myController.signUp,
                 child: Text(
                   'Create',
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: 'ShadowsIntoLight',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.black),
                 ),
-                color: Colors.blue,
+                color: Colors.greenAccent[400],
               )
             ],
           ),

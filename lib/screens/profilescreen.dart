@@ -37,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Settings'),
+        backgroundColor: Colors.greenAccent[400],
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.check),
@@ -51,7 +52,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <Widget>[
               Text(
                 'Change Profile Picture',
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(
+                    fontFamily: 'ShadowsIntoLight',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black),
               ),
               Stack(
                 children: <Widget>[
@@ -114,12 +119,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onSaved: myController.onSavedDisplayName,
               ),
               ListTile(
-                leading: Icon(Icons.notifications),
+                leading: Icon(
+                  Icons.notifications,
+                  color: Colors.greenAccent[400],
+                ),
                 title: Text('Profile Settings'),
                 onTap: myController.notificationSettingsScreen,
               ),
               ListTile(
-                leading: Icon(Icons.android),
+                leading: Icon(
+                  Icons.android,
+                  color: Colors.greenAccent[400],
+                ),
                 title: Text('UI Settings'),
                 onTap: myController.uiSettingsScreen,
               ),

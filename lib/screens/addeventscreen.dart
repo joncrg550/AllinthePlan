@@ -54,6 +54,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.greenAccent[400],
         title: Text('Add an Event'),
         actions: <Widget>[
           IconButton(
@@ -75,6 +76,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                           ? Icon(
                               Icons.photo_library,
                               size: 300.0,
+                              color: Colors.greenAccent[400],
                             )
                           : Image.file(image, fit: BoxFit.fill)),
                   Positioned(
@@ -144,11 +146,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 maxLines: 3,
                 validator: myController.validatorEventNote,
                 onSaved: myController.onSavedEventNote,
-              ),
-              ListTile(
-                leading: Icon(Icons.note_add),
-                title: Text("Enter An existing note title to add a note"),
-                onTap: myController.addNote,
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Shared With'),
@@ -330,8 +327,6 @@ class _Controller {
       });
     } catch (e) {}
   }
-
-  void addNote() {}
 
   String validatorEventNote(String title) {
     bool noteFound = false;

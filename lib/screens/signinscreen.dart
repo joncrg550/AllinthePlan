@@ -1,10 +1,8 @@
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
-
 import 'package:AllinthePlan/model/event.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'homescreen.dart';
 import 'signupscreen.dart';
 
@@ -115,7 +113,6 @@ class _Controller {
 
     try {
       user = await FireBaseController.signIn(email, password);
-      print('#DEBUG USER: $user');
     } catch (e) {
       DialogBox.circularProgressEnd(_state.context);
       DialogBox.info(

@@ -1,5 +1,3 @@
-import 'package:AllinthePlan/controller/firebasecontroller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -7,32 +5,17 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 class Event {
   //field name for firesstore
   static const COLLECTION = 'events';
-
   static const EVENT_TITLE = 'eventTitle';
   static const CREATED_BY = 'createdBy';
   static const UPDATED_AT = 'updatedAt';
   static const FROM = 'from';
   static const TO = 'to';
   static const SHARED_WITH = 'sharedWith';
-  //#TODO find similar to photoMemo
   static const IMAGE_FOLDER = 'eventPictures';
   static const PROFILE_FOLDER = 'profilePictures';
   static const PHOTO_URL = 'photoURL';
   static const PHOTO_PATH = 'photoPath';
-  //#TODO find libs, build out functionality
-  static const VIDEO_FOLDER = 'eventVideo';
-  static const VIDEO_URL = 'videoURL';
-  static const VIDEO_PATH = 'videoPath';
-
-  //#TODO find libs, build out functionality
-  static const SOUND_FOLDER = 'eventSound';
-  static const SOUND_URL = 'soundURL';
-  static const SOUND_PATH = 'soundPath';
-
-  //#TODO build out note functionality
   static const EVENT_NOTE = 'eventNote';
-
-  //need google maps and ml
   static const EVENT_LOCATION = 'eventLocation';
 
   String docId; //firestore doc id
@@ -41,23 +24,11 @@ class Event {
   DateTime updatedAt;
   DateTime from;
   DateTime to;
-
   String photoURL;
   String photoPath;
-
-  String videoUrl;
-  String videoPath;
-
-  String soundURL;
-  String soundPath;
-
   String eventNote;
-
   String eventLocation;
-
   List<dynamic> sharedWith;
-
-  //worthless syncfusion crap
   bool isAllDay = false;
   Color background = Colors.blue;
   String fromZone = '';
@@ -69,10 +40,6 @@ class Event {
     this.eventTitle,
     this.photoPath,
     this.photoURL,
-    this.soundPath,
-    this.soundURL,
-    this.videoPath,
-    this.videoUrl,
     this.eventNote,
     this.sharedWith,
     this.updatedAt,
@@ -81,7 +48,7 @@ class Event {
     this.eventLocation,
   }) {
     this.sharedWith ??= [];
-    this.eventLocation ??= ''; //set to empty for testing
+    this.eventLocation ??= '';
   }
 
   Map<String, dynamic> serialize() {
@@ -92,10 +59,6 @@ class Event {
       EVENT_LOCATION: eventLocation,
       PHOTO_PATH: photoPath,
       PHOTO_URL: photoURL,
-      VIDEO_PATH: videoPath,
-      VIDEO_URL: videoUrl,
-      SOUND_PATH: soundPath,
-      SOUND_URL: soundURL,
       UPDATED_AT: updatedAt,
       FROM: from,
       TO: to,
@@ -112,10 +75,6 @@ class Event {
       eventNote: data[Event.EVENT_NOTE],
       photoPath: data[Event.PHOTO_PATH],
       photoURL: data[Event.PHOTO_URL],
-      videoPath: data[Event.VIDEO_PATH],
-      videoUrl: data[Event.VIDEO_URL],
-      soundPath: data[Event.SOUND_PATH],
-      soundURL: data[Event.SOUND_URL],
       sharedWith: data[Event.SHARED_WITH],
       from: data[Event.FROM] != null
           ? DateTime.fromMillisecondsSinceEpoch(

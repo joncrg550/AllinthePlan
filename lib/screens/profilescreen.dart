@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:AllinthePlan/screens/notificationsettings.dart';
 import 'package:AllinthePlan/screens/ui_settings.dart';
@@ -7,7 +6,6 @@ import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'views/myimageview.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -216,8 +214,6 @@ class _Controller {
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;
-
-    //Navigator.pop(_state.context);
   }
 
   void uiSettingsScreen() async {
@@ -229,7 +225,5 @@ class _Controller {
 
     await _state.user.reload();
     _state.user = FirebaseAuth.instance.currentUser;
-
-    //Navigator.pop(_state.context);
   }
 }

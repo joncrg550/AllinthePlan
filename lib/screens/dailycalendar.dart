@@ -101,7 +101,6 @@ class _Controller extends CalendarController {
   var _subjectText, _startTimeText, _endTimeText, _photoUrl, _location, _note;
 
   void calendarTapped(CalendarTapDetails details) {
-    print("tapped");
     if (details.targetElement == CalendarElement.appointment ||
         details.targetElement == CalendarElement.agenda) {
       final Event appointmentDetails = details.appointments[0];
@@ -136,9 +135,7 @@ class _Controller extends CalendarController {
     }
   }
 
-  void calendarLongPressed() {
-    //need to push data to EditEventView about the day, so it can know which days
-  }
+  void calendarLongPressed() {}
 
   void addEvent() {
     Navigator.pushNamed(_state.context, AddEventScreen.routeName, arguments: {

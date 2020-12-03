@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import 'addeventscreen.dart';
 import 'deleteeventscreen.dart';
 
@@ -103,8 +102,6 @@ class _Controller extends CalendarController {
   void calendarTapped(CalendarTapDetails details) {
     //need to push data to event view about the day, so it can return that
     //days events
-    //may not be a calendar cell, include error handling
-    print("tapped");
     if (details.targetElement == CalendarElement.appointment) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;
@@ -139,9 +136,7 @@ class _Controller extends CalendarController {
     }
   }
 
-  void calendarLongPressed() {
-    //need to push data to EditEventView about the day, so it can know which days
-  }
+  void calendarLongPressed() {}
 
   void addEvent() {
     //navigate to event view, repaint on return

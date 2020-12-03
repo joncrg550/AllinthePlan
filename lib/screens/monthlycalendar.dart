@@ -1,22 +1,9 @@
-//        .==.        .==.
-//       //`^\\      //^`\\
-//      // ^ ^\(\__/)/^ ^^\\
-//     //^ ^^ ^/6  6\ ^^ ^ \\
-//    //^ ^^ ^/( .. )\^ ^ ^ \\
-//   // ^^ ^/\| v""v |/\^ ^ ^\\
-//  // ^^/\/ /  `~~`  \ \/\^ ^\\
-//  -----------------------------
-/// HERE BE DRAGONS
-/// ABANDON ALL HOPE, YE WHO FEAR BUGS.
-import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:AllinthePlan/model/note.dart';
-
 import 'package:AllinthePlan/screens/addeventscreen.dart';
 import 'package:AllinthePlan/screens/deleteeventscreen.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:AllinthePlan/model/event.dart';
@@ -132,7 +119,6 @@ class _Controller extends CalendarController {
   var _subjectText, _startTimeText, _endTimeText, _note, _photoUrl, _location;
 
   void calendarTapped(CalendarTapDetails details) {
-    print("tapped");
     if (details.targetElement == CalendarElement.appointment) {
       final Event appointmentDetails = details.appointments[0];
       _subjectText = appointmentDetails.eventTitle;

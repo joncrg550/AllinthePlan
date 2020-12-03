@@ -1,14 +1,10 @@
 import 'dart:io';
-
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
-
 import 'package:AllinthePlan/model/event.dart';
 import 'package:AllinthePlan/model/note.dart';
-import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/views/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -31,8 +27,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
   List<Event> events;
   List<Note> notes;
   File image;
-  File video; //#TODO
-  File sound; //#TODO
   _Controller myController;
   EventDataSource source;
 
@@ -179,7 +173,7 @@ class _Controller {
 
     try {
       DialogBox.circularProgressStart(_state.context);
-      //1. upload picture to storage
+
       if (_state.image == null) {
         DialogBox.circularProgressEnd(_state.context);
         return;
@@ -195,7 +189,6 @@ class _Controller {
             });
           });
 
-      //2. save Event doc to Firestore
       var p = Event(
         eventTitle: eventTitle,
         photoPath: photoInfo['path'],
@@ -210,8 +203,6 @@ class _Controller {
       );
 
       p.docId = await FireBaseController.addEvent(p);
-      print(p.toString());
-      print('################################');
 
       DialogBox.circularProgressEnd(_state.context);
 

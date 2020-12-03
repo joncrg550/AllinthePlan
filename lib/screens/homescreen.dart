@@ -22,7 +22,6 @@
 
 import 'package:AllinthePlan/controller/firebasecontroller.dart';
 import 'package:AllinthePlan/model/event.dart';
-
 import 'package:AllinthePlan/screens/dailycalendar.dart';
 import 'package:AllinthePlan/screens/monthlycalendar.dart';
 import 'package:AllinthePlan/screens/notescreen.dart';
@@ -30,7 +29,6 @@ import 'package:AllinthePlan/screens/profilescreen.dart';
 import 'package:AllinthePlan/screens/weeklycalendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'signinscreen.dart';
 
 class HomeScreen extends StatefulWidget {
